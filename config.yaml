@@ -1,0 +1,16 @@
+tdengine:
+  path: localhost
+  port: 6041
+  username: root
+  password: taosdata
+  db-name: tdengine
+  log-mode: error
+ali-amqp-cred:
+  ali-amqp-host: iot-amqp.cn-shanghai.aliyuncs.com
+  ali-amqp-port: 5671
+  aliyun-uid:
+  iot-instance-id:
+  access-key:
+  access-secret:
+  consumer-group-id:
+  client-id:

@@ -1,0 +1,10 @@
+version: "3"
+services:
+  ali-iot:
+    image: ali-iot:${version}
+    container_name: ali-iot
+    restart: always
+    volumes:
+      - ./config.dev.yaml:/etc/bhms/config.yaml
+#    tty: true   # 测试看文件使用
+#    command: /bin/bash  # 测试看文件使用
