@@ -1,4 +1,4 @@
-name: CI
+name: CI-CD-DEV
 
 on:
   push:
@@ -21,20 +21,21 @@ jobs:
           password: "${{ secrets.REGISTRY_PASSWORD }}"
       - name: Set env
         run: |
-          echo "VERSION_TAG=${GITHUB_REF:10}" >> $GITHUB_ENV
-          echo "VERSION_SHA=${GITHUB_SHA:12}" >> $GITHUB_ENV
+          echo "APP_VERSION=${GITHUB_REF:10}-${GITHUB_SHA:12}" >> $GITHUB_ENV
       - name: Build and push image
         env:
-          IMAGE_TAG: ${{ env.VERSION_TAG }}
+          IMAGE_TAG: ${{ env.APP_VERSION }}
         run: |
           docker build -t registry.cn-shanghai.aliyuncs.com/kgiot/bhms-ali-iot:$IMAGE_TAG .
           docker push registry.cn-shanghai.aliyuncs.com/kgiot/bhms-ali-iot:$IMAGE_TAG
       - name: Deploy the image
         uses: appleboy/ssh-action@master
+        env:
+          IMAGE_TAG: ${{ env.APP_VERSION }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            docker run --rm -d -v /etc/bhms/ali-iot/config.dev.yaml:/etc/bhms/config.yaml -v /etc/bhms/ali-iot/log:/app/log registry.cn-shanghai.aliyuncs.com/kgiot/bhms-ali-iot:${{ env.VERSION_TAG }}
+            docker run --rm -d -v /etc/bhms/ali-iot/config.dev.yaml:/etc/bhms/config.yaml -v /etc/bhms/ali-iot/log:/app/log registry.cn-shanghai.aliyuncs.com/kgiot/bhms-ali-iot:$IMAGE_TAG
