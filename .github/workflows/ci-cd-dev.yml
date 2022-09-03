@@ -21,7 +21,7 @@ jobs:
           password: "${{ secrets.REGISTRY_PASSWORD }}"
       - name: Set env
         run: |
-          echo "APP_VERSION=${GITHUB_REF:10}-${GITHUB_SHA:12}" >> $GITHUB_ENV
+          echo "APP_VERSION=${GITHUB_REF:10}-${GITHUB_SHA:28}" >> $GITHUB_ENV
       - name: Build and push image
         run: |
           docker build -t registry.cn-shanghai.aliyuncs.com/kgiot/bhms-ali-iot:${{ env.APP_VERSION }} .
