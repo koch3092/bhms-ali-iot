@@ -5,7 +5,7 @@ import (
 	"bhms-ali-iot/global"
 	"bhms-ali-iot/initialize"
 	"context"
-	_ "github.com/taosdata/driver-go/v3/taosRestful"
+	_ "github.com/taosdata/driver-go/v2/taosRestful"
 	"pack.ag/amqp"
 )
 
