@@ -7,6 +7,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/mitchellh/mapstructure"
 	"go.uber.org/zap"
 	"pack.ag/amqp"
 )
@@ -39,6 +40,12 @@ ProcessMessage:
 				h.Logger.DPanic(fmt.Sprintf("Read data type error: %s", errJson.Error()))
 			}
 
+			var messageBase model.MessageBase
+			errMessageBase := mapstructure.Decode(message.ApplicationProperties, &messageBase)
+			if errMessageBase != nil {
+				h.Logger.DPanic(fmt.Sprintf("Read message base info error: %s", errJson.Error()))
+			}
+
 			var errM, errC error
 			switch dataType.LatestDataType {
 			case 1: // 桥面温度
@@ -47,6 +54,7 @@ ProcessMessage:
 				if errM != nil {
 					h.Logger.DPanic(fmt.Sprintf("Read Bridge Deck Temp error: %s", errM.Error()))
 				}
+				m.MessageId = messageBase.MessageId
 				h.Logger.Debug(fmt.Sprintf("iotDataBase: %#v, tagsBase: %#v, bdt: %#v", m.IotDataBase, m.TagsBase, m))
 				ms := service.BridgeDeckTempService{Logger: global.Logger}
 				errC = ms.CreateBridgeDeckTemp(session, &m)
@@ -64,6 +72,7 @@ ProcessMessage:
 				if errM != nil {
 					h.Logger.DPanic(fmt.Sprintf("Read Deflection error. %s", errM.Error()))
 				}
+				m.MessageId = messageBase.MessageId
 				ms := service.DeflectionService{Logger: global.Logger}
 				errC = ms.CreateDeflection(session, &m)
 			case 4: // 索力
@@ -72,6 +81,7 @@ ProcessMessage:
 				if errM != nil {
 					h.Logger.DPanic(fmt.Sprintf("Read Cable Tension error. %s", errM.Error()))
 				}
+				m.MessageId = messageBase.MessageId
 				ms := service.CableTensionService{Logger: global.Logger}
 				errC = ms.CreateCableTension(session, &m)
 			case 5: // 静应变
@@ -80,6 +90,7 @@ ProcessMessage:
 				if errM != nil {
 					h.Logger.DPanic(fmt.Sprintf("Read Static Strain error. %s", errM.Error()))
 				}
+				m.MessageId = messageBase.MessageId
 				ms := service.StaticStrainService{Logger: global.Logger}
 				errC = ms.CreateStaticStrain(session, &m)
 			case 6: // 地震
@@ -88,6 +99,7 @@ ProcessMessage:
 				if errM != nil {
 					h.Logger.DPanic(fmt.Sprintf("Read Seismic error. %s", errM.Error()))
 				}
+				m.MessageId = messageBase.MessageId
 				ms := service.SeismicService{Logger: global.Logger}
 				errC = ms.CreateSeismic(session, &m)
 			case 7: // 车道
@@ -96,6 +108,7 @@ ProcessMessage:
 				if errM != nil {
 					h.Logger.DPanic(fmt.Sprintf("Read Driveway error. %s", errM.Error()))
 				}
+				m.MessageId = messageBase.MessageId
 				ms := service.DrivewayService{Logger: global.Logger}
 				errC = ms.CreateDriveway(session, &m)
 			}

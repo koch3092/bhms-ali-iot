@@ -27,13 +27,13 @@ func (m *Deflection) TableName() string {
 
 // IotDataBaseColString 数据的基础列名字符串
 func (m *Deflection) IotDataBaseColString() string {
-	return "ts, request_id, yyyy, mm, dd, hh"
+	return "ts, request_id, message_id, yyyy, mm, dd, hh"
 }
 
 // IotDataBaseValString 数据的基础列值字符串
 func (m *Deflection) IotDataBaseValString() string {
 	// 与IotDataBaseColString中的列一一对应
-	return fmt.Sprintf("%d, %s, '%s', '%s', '%s', '%s'", m.Ts, m.RequestId, m.Yyyy, m.Mm, m.Dd, m.Hh)
+	return fmt.Sprintf("%d, %s, %d, '%s', '%s', '%s', '%s'", m.Ts, m.RequestId, m.MessageId, m.Yyyy, m.Mm, m.Dd, m.Hh)
 }
 
 // BizColString 数据的业务列名字符串
