@@ -27,8 +27,9 @@ jobs:
         env:
           IMAGE_TAG: ${{ env.VERSION_TAG }}
         run: |
-          docker build -t registry.cn-shanghai.aliyuncs.com/kgiot/bhms-ali-iot:$IMAGE_TAG .
+          docker build -t registry.cn-shanghai.aliyuncs.com/kgiot/bhms-ali-iot:latest -t registry.cn-shanghai.aliyuncs.com/kgiot/bhms-ali-iot:$IMAGE_TAG .
           docker push registry.cn-shanghai.aliyuncs.com/kgiot/bhms-ali-iot:$IMAGE_TAG
+          docker push registry.cn-shanghai.aliyuncs.com/kgiot/bhms-ali-iot:latest
       - name: Deploy the image
         uses: appleboy/ssh-action@master
         with:
@@ -37,4 +38,4 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            docker run --rm -d -v /etc/bhms/ali-iot/config.prod.yaml:/etc/bhms/config.yaml -v /etc/bhms/ali-iot/log:/app/log registry.cn-shanghai.aliyuncs.com/kgiot/bhms-ali-iot:${{ env.VERSION_TAG }}
+            docker run -d -v /etc/bhms/ali-iot/config.prod.yaml:/etc/bhms/config.yaml -v /etc/bhms/ali-iot/log:/app/log registry.cn-shanghai.aliyuncs.com/kgiot/bhms-ali-iot:${{ env.VERSION_TAG }}
