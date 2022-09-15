@@ -164,7 +164,7 @@ ProcessMessage:
 			mes := &model.Measurement{
 				TdMetricBase: tdMetricBase,
 				MetricsBase: &model.MetricsBase{
-					Dt:         uint64(time.Now().UnixMicro()),
+					Dt:         uint64(time.Now().UnixMilli()),
 					MetricType: dataType.LatestDataType,
 					MetricNo:   "",
 					FieldName:  "",
