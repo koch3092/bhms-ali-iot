@@ -27,13 +27,13 @@ func (m *CableTension) TableName() string {
 
 // IotDataBaseColString 数据的基础列名字符串
 func (m *CableTension) IotDataBaseColString() string {
-	return "ts, request_id, message_id, yyyy, mm, dd, hh"
+	return "ts, yyyy, mm, dd, hh, request_id, message_id"
 }
 
 // IotDataBaseValString 数据的基础列值字符串
 func (m *CableTension) IotDataBaseValString() string {
 	// 与IotDataBaseColString中的列一一对应
-	return fmt.Sprintf("%d, %s, %d, '%s', '%s', '%s', '%s'", m.Ts, m.RequestId, m.MessageId, m.Yyyy, m.Mm, m.Dd, m.Hh)
+	return fmt.Sprintf("%d, '%s', '%s', '%s', '%s', %s, %d", m.Ts, m.Yyyy, m.Mm, m.Dd, m.Hh, m.RequestId, m.MessageId)
 }
 
 // BizColString 数据的业务列名字符串

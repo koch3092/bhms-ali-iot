@@ -18,7 +18,7 @@ type AmqpManager struct {
 	Logger   *zap.Logger
 }
 
-func (am *AmqpManager) StartReceiveMessage(ctx context.Context, recMessage chan<- *amqp.Message) {
+func (am *AmqpManager) StartReceiveMessage(ctx context.Context, sdRcvMsg chan<- *amqp.Message, aRcvMsg chan<- *amqp.Message) {
 	childCtx, childDone := context.WithCancel(ctx)
 	am.Logger.Info("Start connect amqp server: " + am.Address)
 	err := am.generateReceiverWithRetry(childCtx)
@@ -45,10 +45,12 @@ func (am *AmqpManager) StartReceiveMessage(ctx context.Context, recMessage chan<
 	for {
 		// 阻塞接受消息，如果ctx是background则不会被打断。
 		message, err := am.Receiver.Receive(ctx)
+		am.Logger.Info(fmt.Sprintf("data received: %s properties: %#v", string(message.GetData()), message.ApplicationProperties))
 
 		if err == nil {
 			// 收到数据后，发送到Channel中，给到另外一个线程处理
-			recMessage <- message
+			sdRcvMsg <- message
+			aRcvMsg <- message
 			err := message.Accept()
 			if err != nil {
 				childDone()
