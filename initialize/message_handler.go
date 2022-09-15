@@ -481,7 +481,7 @@ ProcessMessage:
 				mes.FieldValue = fmt.Sprintf("%f", m.SeismicXValue)
 				insertSqlValues += fmt.Sprintf(" (%s, %s, %s)", mes.TdMetricsBaseValString(), mes.MetricsBaseValString(), mes.AlarmValString())
 
-				mes.FieldName = "ss_strain"
+				mes.FieldName = "seismic_z_axis"
 				mes.FieldUnit = m.SeismicZUnit
 				mes.AlarmLevel = 0
 				mes.AlarmCordon = 0
