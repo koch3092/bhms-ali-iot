@@ -544,7 +544,7 @@ ProcessMessage:
 				mes.AlarmCordon = 0
 				// 对监控点根据实际情况赋值
 				mes.MetricNo = fmt.Sprintf("%d", m.DrivewayKey)
-				mes.FieldValue = m.DrivewayModelLabel
+				mes.FieldValue = fmt.Sprintf("%d", m.DrivewayModelValue)
 				insertSqlValues += fmt.Sprintf(" (%s, %s, %s)", mes.TdMetricsBaseValString(), mes.MetricsBaseValString(), mes.AlarmValString())
 
 				batchInsertSql += insertSqlValues
