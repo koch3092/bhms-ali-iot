@@ -317,8 +317,8 @@ ProcessMessage:
 					mes.AlarmLevel = 1
 					mes.AlarmCordon = global.CONFIG.Cordons.AmbientHumidity1
 				}
-				mes.Ts = mes.Ts + 1
-				mes.Dt = mes.Dt + 0
+				mes.Ts = mes.Ts + 4
+				mes.Dt = mes.Dt + 3
 				mes.MetricNo = strconv.Itoa(1)
 				mes.FieldValue = fmt.Sprintf("%f", m.Humidity1)
 				insertSqlValues += fmt.Sprintf(" (%s, %s, %s)", mes.TdMetricsBaseValString(), mes.MetricsBaseValString(), mes.AlarmValString())
@@ -330,8 +330,8 @@ ProcessMessage:
 					mes.AlarmLevel = 1
 					mes.AlarmCordon = global.CONFIG.Cordons.AmbientHumidity1
 				}
-				mes.Ts = mes.Ts + 2
-				mes.Dt = mes.Dt + 1
+				mes.Ts = mes.Ts + 5
+				mes.Dt = mes.Dt + 4
 				mes.MetricNo = strconv.Itoa(2)
 				mes.FieldValue = fmt.Sprintf("%f", m.Humidity2)
 				insertSqlValues += fmt.Sprintf(" (%s, %s, %s)", mes.TdMetricsBaseValString(), mes.MetricsBaseValString(), mes.AlarmValString())
@@ -343,8 +343,8 @@ ProcessMessage:
 					mes.AlarmLevel = 1
 					mes.AlarmCordon = global.CONFIG.Cordons.AmbientHumidity1
 				}
-				mes.Ts = mes.Ts + 3
-				mes.Dt = mes.Dt + 2
+				mes.Ts = mes.Ts + 6
+				mes.Dt = mes.Dt + 5
 				mes.MetricNo = strconv.Itoa(3)
 				mes.FieldValue = fmt.Sprintf("%f", m.Humidity3)
 				insertSqlValues += fmt.Sprintf(" (%s, %s, %s)", mes.TdMetricsBaseValString(), mes.MetricsBaseValString(), mes.AlarmValString())
@@ -436,6 +436,8 @@ ProcessMessage:
 					mes.AlarmLevel = 1
 					mes.AlarmCordon = global.CONFIG.Cordons.StaticStrainTemp1
 				}
+				mes.Ts = mes.Ts + 1
+				mes.Dt = mes.Dt + 0
 				mes.MetricNo = fmt.Sprintf("%d", m.StaticStrainKey)
 				mes.FieldValue = fmt.Sprintf("%f", m.SSTemperatureValue)
 				insertSqlValues += fmt.Sprintf(" (%s, %s, %s)", mes.TdMetricsBaseValString(), mes.MetricsBaseValString(), mes.AlarmValString())
@@ -452,6 +454,8 @@ ProcessMessage:
 					mes.AlarmLevel = 1
 					mes.AlarmCordon = global.CONFIG.Cordons.StaticStrainValue1
 				}
+				mes.Ts = mes.Ts + 2
+				mes.Dt = mes.Dt + 1
 				mes.MetricNo = fmt.Sprintf("%d", m.StaticStrainKey)
 				mes.FieldValue = fmt.Sprintf("%f", m.SSStrainValue)
 				insertSqlValues += fmt.Sprintf(" (%s, %s, %s)", mes.TdMetricsBaseValString(), mes.MetricsBaseValString(), mes.AlarmValString())
@@ -477,6 +481,8 @@ ProcessMessage:
 					mes.AlarmLevel = 1
 					mes.AlarmCordon = global.CONFIG.Cordons.SeismicXValue1
 				}
+				mes.Ts = mes.Ts + 1
+				mes.Dt = mes.Dt + 0
 				mes.MetricNo = fmt.Sprintf("%d", m.SeismicKey)
 				mes.FieldValue = fmt.Sprintf("%f", m.SeismicXValue)
 				insertSqlValues += fmt.Sprintf(" (%s, %s, %s)", mes.TdMetricsBaseValString(), mes.MetricsBaseValString(), mes.AlarmValString())
@@ -493,6 +499,8 @@ ProcessMessage:
 					mes.AlarmLevel = 1
 					mes.AlarmCordon = global.CONFIG.Cordons.SeismicZValue1
 				}
+				mes.Ts = mes.Ts + 2
+				mes.Dt = mes.Dt + 1
 				mes.MetricNo = fmt.Sprintf("%d", m.SeismicKey)
 				mes.FieldValue = fmt.Sprintf("%f", m.SeismicZValue)
 				insertSqlValues += fmt.Sprintf(" (%s, %s, %s)", mes.TdMetricsBaseValString(), mes.MetricsBaseValString(), mes.AlarmValString())
@@ -518,6 +526,8 @@ ProcessMessage:
 					mes.AlarmLevel = 1
 					mes.AlarmCordon = global.CONFIG.Cordons.DrivewayWeight1
 				}
+				mes.Ts = mes.Ts + 1
+				mes.Dt = mes.Dt + 0
 				mes.MetricNo = fmt.Sprintf("%d", m.DrivewayKey)
 				mes.FieldValue = fmt.Sprintf("%f", m.DrivewayWeightValue)
 				insertSqlValues += fmt.Sprintf(" (%s, %s, %s)", mes.TdMetricsBaseValString(), mes.MetricsBaseValString(), mes.AlarmValString())
@@ -534,6 +544,8 @@ ProcessMessage:
 					mes.AlarmLevel = 1
 					mes.AlarmCordon = global.CONFIG.Cordons.DrivewaySpeed1
 				}
+				mes.Ts = mes.Ts + 2
+				mes.Dt = mes.Dt + 1
 				mes.MetricNo = fmt.Sprintf("%d", m.DrivewayKey)
 				mes.FieldValue = fmt.Sprintf("%f", m.DrivewaySpeedValue)
 				insertSqlValues += fmt.Sprintf(" (%s, %s, %s)", mes.TdMetricsBaseValString(), mes.MetricsBaseValString(), mes.AlarmValString())
@@ -543,6 +555,8 @@ ProcessMessage:
 				mes.AlarmLevel = 0
 				mes.AlarmCordon = 0
 				// 对监控点根据实际情况赋值
+				mes.Ts = mes.Ts + 3
+				mes.Dt = mes.Dt + 2
 				mes.MetricNo = fmt.Sprintf("%d", m.DrivewayKey)
 				mes.FieldValue = fmt.Sprintf("%d", m.DrivewayModelValue)
 				insertSqlValues += fmt.Sprintf(" (%s, %s, %s)", mes.TdMetricsBaseValString(), mes.MetricsBaseValString(), mes.AlarmValString())
