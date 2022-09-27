@@ -384,6 +384,58 @@ ProcessMessage:
 				mes.FieldValue = fmt.Sprintf("%f", m.Deflection2)
 				insertSqlValues += fmt.Sprintf(" (%s, %s, %s)", mes.TdMetricsBaseValString(), mes.MetricsBaseValString(), mes.AlarmValString())
 
+				if m.Deflection3 > global.CONFIG.Cordons.Deflection2 {
+					mes.AlarmLevel = 2
+					mes.AlarmCordon = global.CONFIG.Cordons.Deflection2
+				} else if m.Deflection3 > global.CONFIG.Cordons.Deflection1 {
+					mes.AlarmLevel = 1
+					mes.AlarmCordon = global.CONFIG.Cordons.Deflection1
+				}
+				mes.Ts = mes.Ts + 3
+				mes.Dt = mes.Dt + 2
+				mes.MetricNo = strconv.Itoa(3)
+				mes.FieldValue = fmt.Sprintf("%f", m.Deflection3)
+				insertSqlValues += fmt.Sprintf(" (%s, %s, %s)", mes.TdMetricsBaseValString(), mes.MetricsBaseValString(), mes.AlarmValString())
+
+				if m.Deflection4 > global.CONFIG.Cordons.Deflection2 {
+					mes.AlarmLevel = 2
+					mes.AlarmCordon = global.CONFIG.Cordons.Deflection2
+				} else if m.Deflection4 > global.CONFIG.Cordons.Deflection1 {
+					mes.AlarmLevel = 1
+					mes.AlarmCordon = global.CONFIG.Cordons.Deflection1
+				}
+				mes.Ts = mes.Ts + 4
+				mes.Dt = mes.Dt + 3
+				mes.MetricNo = strconv.Itoa(4)
+				mes.FieldValue = fmt.Sprintf("%f", m.Deflection4)
+				insertSqlValues += fmt.Sprintf(" (%s, %s, %s)", mes.TdMetricsBaseValString(), mes.MetricsBaseValString(), mes.AlarmValString())
+
+				if m.Deflection5 > global.CONFIG.Cordons.Deflection2 {
+					mes.AlarmLevel = 2
+					mes.AlarmCordon = global.CONFIG.Cordons.Deflection2
+				} else if m.Deflection5 > global.CONFIG.Cordons.Deflection1 {
+					mes.AlarmLevel = 1
+					mes.AlarmCordon = global.CONFIG.Cordons.Deflection1
+				}
+				mes.Ts = mes.Ts + 5
+				mes.Dt = mes.Dt + 4
+				mes.MetricNo = strconv.Itoa(5)
+				mes.FieldValue = fmt.Sprintf("%f", m.Deflection5)
+				insertSqlValues += fmt.Sprintf(" (%s, %s, %s)", mes.TdMetricsBaseValString(), mes.MetricsBaseValString(), mes.AlarmValString())
+
+				if m.Deflection6 > global.CONFIG.Cordons.Deflection2 {
+					mes.AlarmLevel = 2
+					mes.AlarmCordon = global.CONFIG.Cordons.Deflection2
+				} else if m.Deflection6 > global.CONFIG.Cordons.Deflection1 {
+					mes.AlarmLevel = 1
+					mes.AlarmCordon = global.CONFIG.Cordons.Deflection1
+				}
+				mes.Ts = mes.Ts + 6
+				mes.Dt = mes.Dt + 5
+				mes.MetricNo = strconv.Itoa(6)
+				mes.FieldValue = fmt.Sprintf("%f", m.Deflection6)
+				insertSqlValues += fmt.Sprintf(" (%s, %s, %s)", mes.TdMetricsBaseValString(), mes.MetricsBaseValString(), mes.AlarmValString())
+
 				batchInsertSql += insertSqlValues
 				ms := service.MeasurementService{Logger: global.Logger}
 				errC = ms.CreateMeasurement(session, batchInsertSql)
