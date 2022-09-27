@@ -21,16 +21,13 @@ type MessageHandler struct {
 func (h MessageHandler) HandleSaveData(ctx context.Context, rcvMessage <-chan *amqp.Message) {
 	h.Logger.Info("Save data handler init success")
 	// TDEngine初始化
-	session, err := TdengineSession()
+	session := global.TDengine
+	err := session.Ping()
 	if err != nil {
-		panic(any(err))
+		panic(err)
+	} else {
+		h.Logger.Info("Session init OK.")
 	}
-	defer func() {
-		err := session.Close()
-		if err != nil {
-			return
-		}
-	}()
 ProcessMessage:
 	for {
 		select {
@@ -127,16 +124,13 @@ ProcessMessage:
 func (h MessageHandler) HandleAlarm(ctx context.Context, rcvMessage <-chan *amqp.Message) {
 	h.Logger.Info("Alarm handler init success")
 	// TDEngine初始化
-	session, err := TdengineSession()
+	session := global.TDengine
+	err := session.Ping()
 	if err != nil {
-		panic(any(err))
+		panic(err)
+	} else {
+		h.Logger.Info("Session init OK.")
 	}
-	defer func() {
-		err := session.Close()
-		if err != nil {
-			return
-		}
-	}()
 ProcessMessage:
 	for {
 		select {
@@ -180,8 +174,8 @@ ProcessMessage:
 
 			// 拼接INSERT语句，各个数据不同，则按实际情况拼接
 			batchInsertSql := fmt.Sprintf(
-				"INSERT INTO %s.%s(%s, %s, %s) USING %s TAGS (%s) VALUES",
-				mes.DatabaseName(), mes.TableName(), mes.TdMetricsBaseColString(), mes.MetricsBaseColString(),
+				"INSERT INTO %s(%s, %s, %s) USING %s TAGS (%s) VALUES",
+				mes.TableName(), mes.TdMetricsBaseColString(), mes.MetricsBaseColString(),
 				mes.AlarmColString(), mes.StableName(), mes.TagValString(),
 			)
 			insertSqlValues := ""
@@ -559,6 +553,7 @@ ProcessMessage:
 				mes.Dt = mes.Dt + 2
 				mes.MetricNo = fmt.Sprintf("%d", m.DrivewayKey)
 				mes.FieldValue = fmt.Sprintf("%d", m.DrivewayModelValue)
+				mes.FieldUnit = m.DrivewayModelLabel
 				insertSqlValues += fmt.Sprintf(" (%s, %s, %s)", mes.TdMetricsBaseValString(), mes.MetricsBaseValString(), mes.AlarmValString())
 
 				batchInsertSql += insertSqlValues

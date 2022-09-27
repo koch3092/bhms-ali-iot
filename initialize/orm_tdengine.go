@@ -3,38 +3,22 @@ package initialize
 import (
 	"bhms-ali-iot/global"
 	"database/sql"
-	"errors"
 )
 
-func InitTdengine() error {
+func InitTdengine() (*sql.DB, error) {
 	m := global.CONFIG.TDengine
 	dsn := m.Dsn()
-	tdengine, err := sql.Open("taosRestful", dsn)
+	global.Logger.Info("Open TDengin dsn: " + dsn)
+	tdengine, err := sql.Open("taosSql", dsn)
 	if err != nil {
-		return err
+		global.Logger.Debug("Open TDengine failed: " + err.Error())
+		return nil, err
 	}
-
-	defer func() {
-		errClose := tdengine.Close()
-		if errClose != nil {
-			return
-		}
-	}()
 
 	errPing := tdengine.Ping()
 	if errPing != nil {
-		return errPing
+		global.Logger.Debug("Ping TDengine failed: " + errPing.Error())
+		return nil, errPing
 	}
-
-	_, errUseDB := tdengine.Exec("USE " + global.CONFIG.TDengine.Dbname + ";")
-	if errUseDB != nil {
-		return errors.New(errUseDB.Error() + " =>> " + global.CONFIG.TDengine.Dbname)
-	}
-	return nil
-}
-
-func TdengineSession() (*sql.DB, error) {
-	m := global.CONFIG.TDengine
-	dsn := m.Dsn()
-	return sql.Open("taosRestful", dsn)
+	return tdengine, nil
 }

@@ -13,12 +13,13 @@ type CableTensionService struct {
 
 func (s CableTensionService) CreateCableTension(session *sql.DB, m *model.CableTension) error {
 	sqlCreate := fmt.Sprintf(
-		"INSERT INTO %s.%s(%s, %s) USING %s TAGS (%s) VALUES (%s, %s)",
-		m.DatabaseName(), m.TableName(), m.IotDataBaseColString(), m.BizColString(), m.StableName(), m.TagValString(), m.IotDataBaseValString(), m.BizValString(),
+		"INSERT INTO %s(%s, %s) USING %s TAGS (%s) VALUES (%s, %s)",
+		m.TableName(), m.IotDataBaseColString(), m.BizColString(), m.StableName(), m.TagValString(), m.IotDataBaseValString(), m.BizValString(),
 	)
 	s.Logger.Debug("SQL: " + sqlCreate)
 	result, errExec := session.Exec(sqlCreate)
 	if errExec != nil {
+		s.Logger.Debug("Exec SQL failed: '" + sqlCreate + "'")
 		return errExec
 	}
 	rowsAffected, errRA := result.RowsAffected()

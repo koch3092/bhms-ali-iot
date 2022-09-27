@@ -13,6 +13,7 @@ func (s MeasurementService) CreateMeasurement(session *sql.DB, sqlCreate string)
 	s.Logger.Debug("Measurement SQL: " + sqlCreate)
 	result, errExec := session.Exec(sqlCreate)
 	if errExec != nil {
+		s.Logger.Debug("Exec SQL failed: '" + sqlCreate + "'")
 		return errExec
 	}
 	rowsAffected, errRA := result.RowsAffected()

@@ -1,10 +1,11 @@
 package config
 
-type TDengineRest struct {
+type TDengine struct {
 	GeneralDB `yaml:",inline" mapstructure:",squash"`
+	Protocol  string `json:"protocol" yaml:"protocol" mapstructure:"protocol"`
 }
 
-func (t *TDengineRest) Dsn() string {
+func (t *TDengine) Dsn() string {
 	if t.Username == "" {
 		t.Username = "root"
 	}
@@ -15,11 +16,15 @@ func (t *TDengineRest) Dsn() string {
 		t.Path = "localhost"
 	}
 	if t.Port == "" {
-		t.Port = "6041"
+		t.Port = "6030"
 	}
-	return t.Username + ":" + t.Password + "@http(" + t.Path + ":" + t.Port + ")/" + t.Dbname
+	if t.Protocol == "" {
+		t.Protocol = "tcp"
+	}
+
+	return t.Username + ":" + t.Password + "@" + t.Protocol + "(" + t.Path + ":" + t.Port + ")/" + t.Dbname
 }
 
-func (t *TDengineRest) GetLogMode() string {
+func (t *TDengine) GetLogMode() string {
 	return t.LogMode
 }
