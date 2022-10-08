@@ -8,7 +8,7 @@ import (
 func InitTdengine() (*sql.DB, error) {
 	m := global.CONFIG.TDengine
 	dsn := m.Dsn()
-	global.Logger.Info("Open TDengin dsn: " + dsn)
+	global.Logger.Debug("Open TDengin dsn: " + dsn)
 	tdengine, err := sql.Open("taosSql", dsn)
 	if err != nil {
 		global.Logger.Debug("Open TDengine failed: " + err.Error())
