@@ -1266,6 +1266,10 @@ ProcessMessage:
 				}
 			}
 			// TODO：收集数据，发送短信，短信需要有记录到TDengine的特定表中
+			_, err := pipe.Exec(ctx)
+			if err != nil {
+				return
+			}
 			if errC != nil {
 				h.Logger.DPanic(errC.Error())
 				panic(errC)
