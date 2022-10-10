@@ -5,6 +5,7 @@ import (
 	"bhms-ali-iot/global"
 	"bhms-ali-iot/initialize"
 	"context"
+	"github.com/alibabacloud-go/tea/tea"
 	_ "github.com/taosdata/driver-go/v2/taosSql"
 	"go.uber.org/zap"
 	"pack.ag/amqp"
@@ -40,10 +41,20 @@ func main() {
 		}
 	}()
 
-	if errCordons := initialize.InitCordons(); errCordons != nil { // 初始化警戒线
+	// 初始化警戒线
+	if errCordons := initialize.InitCordons(); errCordons != nil {
 		global.Logger.DPanic("Init Cordons Error: " + errCordons.Error())
 		panic(any(errCordons))
 	}
+
+	// 初始化短信
+	aliSmsClient, errSms := initialize.CreateClient(tea.String(global.CONFIG.AliSms.AccessKey), tea.String(global.CONFIG.AliSms.AccessSecret))
+	if errSms != nil {
+		global.Logger.DPanic("Init Aliyun sms Error: " + errSms.Error())
+		panic(errSms)
+	}
+	global.AliSms = aliSmsClient
+	global.Logger.Info("Init Aliyun sms success.")
 
 	ctx := context.Background()
 

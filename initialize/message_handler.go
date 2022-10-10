@@ -633,6 +633,13 @@ func (h MessageHandler) HandleAlarm(ctx context.Context, rcvMessage <-chan *amqp
 	} else {
 		h.Logger.Info("Redis session init OK.")
 	}
+	// AliSms 短信服务
+	aliSmsModel := model.AliSms{
+		Phones:        global.CONFIG.Cordons.AlarmContacts,
+		TemplateCode:  global.CONFIG.Cordons.AlarmSmsTemplateId,
+		TemplateParam: "",
+	}
+	aliSmsService := service.AliSmsService{}
 ProcessMessage:
 	for {
 		select {
@@ -696,6 +703,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 
@@ -718,6 +734,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 
@@ -740,6 +765,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 
@@ -762,6 +796,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 			case 2: // 环境温湿度
@@ -795,6 +838,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 
@@ -817,6 +869,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 
@@ -839,6 +900,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 
@@ -866,6 +936,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 
@@ -888,6 +967,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 
@@ -910,6 +998,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 			case 3: // 主梁挠度
@@ -943,6 +1040,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 
@@ -965,6 +1071,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 
@@ -987,6 +1102,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 
@@ -1009,6 +1133,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 
@@ -1031,6 +1164,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 
@@ -1053,6 +1195,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 			case 4: // 索力
@@ -1085,6 +1236,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 			case 5: // 静应变
@@ -1117,6 +1277,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 
@@ -1144,6 +1313,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 			case 6: // 地震
@@ -1176,6 +1354,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 
@@ -1203,6 +1390,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 			case 7: // 车道
@@ -1235,6 +1431,15 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 
@@ -1262,10 +1467,18 @@ ProcessMessage:
 						pipe.HSet(ctx, key, "level", alarm.AlarmLevel)
 						pipe.HSet(ctx, key, "cordon", alarm.AlarmCordon)
 						pipe.Expire(ctx, key, time.Second*90)
+
+						intDt, _ := strconv.Atoi(existAlarm["dt"])
+						uint64Dt := uint64(intDt)
+						if uint64Dt-alarm.Dt > 120000 {
+							err := aliSmsService.SendAliSms(aliSmsModel.Phones, aliSmsModel.TemplateCode, "")
+							if err != nil {
+								return
+							}
+						}
 					}
 				}
 			}
-			// TODO：收集数据，发送短信，短信需要有记录到TDengine的特定表中
 			_, err := pipe.Exec(ctx)
 			if err != nil {
 				return

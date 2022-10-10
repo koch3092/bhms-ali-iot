@@ -5,4 +5,5 @@ type Server struct {
 	AliAmqpCred AliAmqpCredential `mapstructure:"ali-amqp-cred" json:"ali_amqp_cred" yaml:"ali-amqp-cred"`
 	Cordons     Cordons           `mapstructure:"cordons" json:"cordons" yaml:"cordons"`
 	Redis       Redis             `mapstructure:"redis" json:"redis" yaml:"redis"`
+	AliSms      AliSms            `mapstructure:"ali-sms" json:"ali_sms" yaml:"ali-sms"`
 }
