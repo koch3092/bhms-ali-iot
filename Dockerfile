@@ -2,11 +2,11 @@ FROM golang:1.19
 
 # Install tdengine client
 WORKDIR /
-RUN wget https://www.taosdata.com/assets-download/TDengine-client-2.6.0.16-Linux-x64.tar.gz
-RUN tar -zxvf /TDengine-client-2.6.0.16-Linux-x64.tar.gz
-WORKDIR /TDengine-client-2.6.0.16
+RUN wget https://www.taosdata.com/assets-download/TDengine-client-2.6.0.32-Linux-x64.tar.gz
+RUN tar -zxvf /TDengine-client-2.6.0.32-Linux-x64.tar.gz
+WORKDIR /TDengine-client-2.6.0.32
 RUN chmod +x install_client.sh & ./install_client.sh
-RUN rm -rf /TDengine-client-2.6.0.16 & rm -f TDengine-client-2.6.0.16-Linux-x64.tar.gz
+RUN rm -rf /TDengine-client-2.6.0.32 & rm -f TDengine-client-2.6.0.32-Linux-x64.tar.gz
 
 WORKDIR /app/
 COPY . .
