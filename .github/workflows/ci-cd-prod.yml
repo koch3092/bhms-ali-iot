@@ -38,4 +38,4 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            docker run -d -v /etc/bhms/ali-iot/config.prod.yaml:/etc/bhms/config.yaml -v /etc/bhms/ali-iot/log:/app/log registry.cn-shanghai.aliyuncs.com/kgiot/bhms-ali-iot:${{ env.VERSION_TAG }}
+            docker run -d --add-host host.docker.internal:host-gateway -v /etc/bhms/ali-iot/config.prod.yaml:/etc/bhms/config.yaml -v /etc/bhms/ali-iot/log:/app/log registry.cn-shanghai.aliyuncs.com/kgiot/bhms-ali-iot:${{ env.VERSION_TAG }}
