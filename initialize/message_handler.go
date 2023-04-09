@@ -32,6 +32,7 @@ ProcessMessage:
 	for {
 		select {
 		case message := <-rcvMessage:
+			h.Logger.Debug(fmt.Sprintf("Save data to be processed: %d", len(rcvMessage)))
 			var dataType model.DataType
 			errJson := json.Unmarshal(message.GetData(), &dataType)
 			if errJson != nil {
@@ -135,6 +136,7 @@ ProcessMessage:
 	for {
 		select {
 		case message := <-rcvMessage:
+			h.Logger.Debug(fmt.Sprintf("Measurement data to be processed: %d", len(rcvMessage)))
 			// 读取公共数据
 			var tdMetricBase *model.TdMetricBase
 			errTd := json.Unmarshal(message.GetData(), &tdMetricBase)

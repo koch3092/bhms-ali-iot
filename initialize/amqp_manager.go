@@ -54,9 +54,11 @@ func (am *AmqpManager) StartReceiveMessage(ctx context.Context, sdRcvMsg chan<- 
 			aRcvMsg <- message
 			err := message.Accept()
 			if err != nil {
+				am.Logger.Error(fmt.Sprintf("amqp receive data accept error:%s", err))
 				childDone()
 				return
 			}
+			am.Logger.Info("amqp receive data accept ok.")
 		} else {
 			fmt.Println("amqp receive data error:", err)
 

@@ -59,9 +59,9 @@ func main() {
 	ctx := context.Background()
 
 	// 用于转发消息的Channel
-	sdRcvMsg := make(chan *amqp.Message) // 保存原始数据用
-	mRcvMsg := make(chan *amqp.Message)  // 保存Measurement数据用
-	aRcvMsg := make(chan *amqp.Message)  // 告警用
+	sdRcvMsg := make(chan *amqp.Message, 200) // 保存原始数据用
+	mRcvMsg := make(chan *amqp.Message, 200)  // 保存Measurement数据用
+	aRcvMsg := make(chan *amqp.Message, 200)  // 告警用
 
 	// 阿里云AMQP凭证对象
 	aliCred := global.CONFIG.AliAmqpCred
