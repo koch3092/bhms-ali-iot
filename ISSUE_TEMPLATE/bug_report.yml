@@ -1,0 +1,48 @@
+name: 🐞 Bug Report
+description: Report a bug or issue with the bot.
+title: "[Bug] Brief description of the issue"
+labels:
+  - bug
+body:
+  - type: input
+    id: deployment_url
+    attributes:
+      label: What is the URL used to deploy the bot?
+      description: Provide the URL where the bot is deployed.
+      placeholder: https://example.com
+      required: true
+  - type: input
+    id: deployment_time
+    attributes:
+      label: When was the bot deployed?
+      description: Provide the deployment date and time (if applicable).
+      placeholder: YYYY-MM-DD HH:MM
+      required: true
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: How to reproduce the issue?
+      description: Provide step-by-step instructions to reproduce the issue.
+      placeholder: 1. Go to '...'\n2. Click on '...'\n3. Observe the issue
+      required: true
+  - type: textarea
+    id: current_behavior
+    attributes:
+      label: What is the current behavior?
+      description: Describe the current behavior or the error observed.
+      placeholder: Describe what is happening now...
+      required: true
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: What is the expected behavior?
+      description: Provide a brief explanation of what you expected to happen.
+      placeholder: Describe the expected outcome...
+      required: true
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context (optional)
+      description: Add any other context or details about the issue.
+      placeholder: Any additional information...
+      required: false
