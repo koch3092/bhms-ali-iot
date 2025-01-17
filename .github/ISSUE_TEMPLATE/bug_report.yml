@@ -25,7 +25,10 @@ body:
     attributes:
       label: How to reproduce the issue?
       description: Provide step-by-step instructions to reproduce the issue.
-      placeholder: 1. Go to '...'\n2. Click on '...'\n3. Observe the issue
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Observe the issue
     validations:
       required: true
   - type: textarea
@@ -50,5 +53,3 @@ body:
       label: Additional Context (optional)
       description: Add any other context or details about the issue.
       placeholder: Any additional information...
-    validations:
-      required: true
